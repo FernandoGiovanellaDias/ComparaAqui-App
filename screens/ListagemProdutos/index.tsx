@@ -12,8 +12,10 @@ import { useDados, Category, Product } from '@/contexts/DadosContext';
 import styles from './styles';
 import { textStyle } from '@/assets/geralStyles';
 import { RouteProp, useRoute } from '@react-navigation/native';
-import { StackNavigation } from '@/app';
+import { StackNavigation, StackTypes } from '@/app';
 import { recuperarProdutos, RetornoProdutos } from '@/util/produtoUtils';
+import { useNavigation } from 'expo-router';
+import CustomBanner from '@/components/CustomBanner';
 
 
 export type ListagemProdutosProps = {
@@ -27,6 +29,8 @@ type RouteListagemProdutosProps = {
 
 export const ListagemProdutos = () => {
 
+    const { produtosSelecionados } = useDados();
+    const navigation = useNavigation<StackTypes>();
     const route = useRoute<RouteProp<StackNavigation, 'ListagemProdutos'>>();
     const { categoriaSelecionada } = route.params ?? { categoriaSelecionada: null };
 
@@ -41,9 +45,25 @@ export const ListagemProdutos = () => {
     }, []);
 
 
+    const [ativarAlerta, setAtivarAlerta] = useState(false)
+
+    const exibirAlerta = () => {
+        setAtivarAlerta(true);
+        setTimeout(() => { if (!ativarAlerta) { setAtivarAlerta(false) } }, 3000);
+    }
+
+    const abrirSelecionados = () => {
+        if (produtosSelecionados.length > 0) {
+            navigation.navigate("ListagemSelecionados")
+            return;
+        }
+        exibirAlerta();
+    }
+
 
     return (
         <>
+            <CustomBanner visible={ativarAlerta} msg='É necessário selecionar produtos para seguir' />
             <View style={styles.headerContainer}>
                 {
                     categoriaSelecionada === null ?
@@ -63,7 +83,7 @@ export const ListagemProdutos = () => {
 
 
             <View style={styles.footerContainer}>
-                <CustomButton title="Produtos Selecionados" onPress={() => { /* Função ao pressionar */ }} />
+                <CustomButton title="Produtos Selecionados" onPress={() => { abrirSelecionados() }} />
                 <CustomButton title="Buscar por mercados" onPress={() => { /* Função ao pressionar */ }} />
             </View>
         </>

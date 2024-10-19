@@ -1,6 +1,7 @@
 import TopBar from "@/components/TopBar";
 import { Category, DadosProvider } from "@/contexts/DadosContext";
 import { Home } from "@/screens/Home";
+import { ListagemSelecionados } from "@/screens/ListagemSelecionados";
 import { ListagemProdutos, ListagemProdutosProps } from "@/screens/ListagemProdutos";
 import { NavigationContainer, RouteProp } from "@react-navigation/native";
 import { createNativeStackNavigator, NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -11,6 +12,7 @@ const Stack = createNativeStackNavigator();
 export type StackNavigation = {
   Home: undefined;
   ListagemProdutos: ListagemProdutosProps | undefined;
+  ListagemSelecionados: undefined;
 }
 
 export type StackTypes = NativeStackNavigationProp<StackNavigation>;
@@ -24,10 +26,8 @@ export default function App() {
         <NavigationContainer independent={true}>
           <Stack.Navigator screenOptions={{ headerShown: false, contentStyle: { backgroundColor: '#D9D9D9' } }}>
             <Stack.Screen name="Home" component={Home} />
-            <Stack.Screen
-              name="ListagemProdutos"
-              component={ListagemProdutos}
-            />
+            <Stack.Screen name="ListagemProdutos" component={ListagemProdutos} />
+            <Stack.Screen name="ListagemSelecionados" component={ListagemSelecionados} />
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaView>

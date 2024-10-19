@@ -26,7 +26,11 @@ export const textStyle = StyleSheet.create({
     descricaoProdutos: {
         fontSize: 12,
         color: '#6A6A6A'
-    }
+    },
+    totalItens: {
+        fontSize: 18,
+        fontWeight: 'bold',
+    },
 });
 
 

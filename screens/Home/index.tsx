@@ -14,11 +14,12 @@ import { StackTypes } from '@/app';
 import styles from './styles';
 import { textStyle } from '@/assets/geralStyles';
 import { recuperarCategorias, RetornoCategorias } from '@/util/categoriaUtils';
+import CustomBanner from '@/components/CustomBanner';
 
 export const Home = () => {
 
   const navigation = useNavigation<StackTypes>();
-  const { } = useDados();
+  const { produtosSelecionados } = useDados();
 
 
   const [loading, setLoading] = useState(true);
@@ -31,10 +32,26 @@ export const Home = () => {
     });
   }, []);
 
+  const [ativarAlerta, setAtivarAlerta] = useState(false)
+
+  const exibirAlerta = () => {
+    setAtivarAlerta(true);
+    setTimeout(() => { if (!ativarAlerta) { setAtivarAlerta(false) } }, 3000);
+  }
+
+  const abrirSelecionados = () => {
+    if (produtosSelecionados.length > 0) {
+      navigation.navigate("ListagemSelecionados")
+      return;
+    }
+    exibirAlerta();
+  }
 
 
   return (
     <>
+      <CustomBanner visible={ativarAlerta} msg='É necessário selecionar produtos para seguir' />
+
       <View style={styles.headerContainer}>
         <Text style={textStyle.titlePage}>Categorias de Produtos</Text>
       </View>
@@ -47,7 +64,7 @@ export const Home = () => {
       }
 
       <View style={styles.footerContainer}>
-        <CustomButton title="Produtos Selecionados" onPress={() => { navigation.navigate("ListagemProdutos") }} />
+        <CustomButton title="Produtos Selecionados" onPress={() => { abrirSelecionados() }} />
         <CustomButton title="Ver todos os produtos" onPress={() => { navigation.navigate("ListagemProdutos") }} />
         <View style={{ marginTop: 20 }} >
           <CustomButton title="Buscar por mercados" onPress={() => { /* Função ao pressionar */ }} />
