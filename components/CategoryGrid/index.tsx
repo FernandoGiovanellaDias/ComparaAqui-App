@@ -4,6 +4,10 @@ import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity } from 'react
 
 import Icon from "../../assets/images/icon-category.png";
 import { Category, useDados } from '@/contexts/DadosContext';
+import styles from './styles';
+import { textStyle } from '@/assets/geralStyles';
+import { useNavigation } from 'expo-router';
+import { StackTypes } from '@/app';
 
 export type CategoryGridProps = {
     categorias: Category[];
@@ -11,10 +15,14 @@ export type CategoryGridProps = {
 
 
 const CategoryGrid = ({categorias}:CategoryGridProps) => {
+
+    
+  const navigation = useNavigation<StackTypes>();
+
     const renderItem = ({ item }: { item: Category }) => (
-        <TouchableOpacity style={styles.categoryItem}>
+        <TouchableOpacity style={styles.categoryItem} onPress={()=>{navigation.navigate("ListagemProdutos", {categoriaSelecionada: item});}}>
             <Image source={Icon} style={styles.icon} />
-            <Text style={styles.categoryText}>{item.title}</Text>
+            <Text style={textStyle.text}>{item.title}</Text>
         </TouchableOpacity>
     );
 
@@ -28,33 +36,5 @@ const CategoryGrid = ({categorias}:CategoryGridProps) => {
         />
     );
 };
-
-const styles = StyleSheet.create({
-    grid: {
-        justifyContent: 'center',
-        alignItems: 'flex-start',
-        padding: 10,
-    },
-    categoryItem: {
-        margin: 10,
-        padding: 10,
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: 100,
-        height: 100,
-        backgroundColor: '#E2E2E2',
-        borderColor: '#A8A9B0',
-        borderWidth: 1,
-        borderRadius: 10,
-    },
-    icon: {
-        flex: 1,
-        resizeMode: 'contain',
-        marginBottom: 5,
-    },
-    categoryText: {
-        fontSize: 14,
-    },
-});
 
 export default CategoryGrid;

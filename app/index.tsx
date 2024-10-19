@@ -1,34 +1,33 @@
 import TopBar from "@/components/TopBar";
-import { DadosProvider } from "@/contexts/DadosContext";
+import { Category, DadosProvider } from "@/contexts/DadosContext";
 import { Home } from "@/screens/Home";
-import { ListagemProdutos } from "@/screens/ListagemProdutos";
-import { NavigationContainer } from "@react-navigation/native";
+import { ListagemProdutos, ListagemProdutosProps } from "@/screens/ListagemProdutos";
+import { NavigationContainer, RouteProp } from "@react-navigation/native";
 import { createNativeStackNavigator, NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { SafeAreaView, StatusBar } from "react-native";
 
+const Stack = createNativeStackNavigator();
 
-import { createStackNavigator } from '@react-navigation/stack';
-import { SafeAreaView, StatusBar, StyleSheet, View } from "react-native";
-
-const Stack = createStackNavigator();
-
-type StackNavigation = {
+export type StackNavigation = {
   Home: undefined;
-  ListagemProdutos: undefined;
+  ListagemProdutos: ListagemProdutosProps | undefined;
 }
 
 export type StackTypes = NativeStackNavigationProp<StackNavigation>;
 
 export default function App() {
-
   return (
     <DadosProvider>
-      <StatusBar backgroundColor="#EAEAEA" barStyle="dark-content"/>
       <SafeAreaView style={{ flex: 1 }}>
+        <StatusBar backgroundColor="#EAEAEA" barStyle="dark-content" />
         <TopBar />
         <NavigationContainer independent={true}>
-          <Stack.Navigator screenOptions={{ headerShown: false, cardStyle: { backgroundColor: '#D9D9D9' } }}>
+          <Stack.Navigator screenOptions={{ headerShown: false, contentStyle: { backgroundColor: '#D9D9D9' } }}>
             <Stack.Screen name="Home" component={Home} />
-            <Stack.Screen name="ListagemProdutos" component={ListagemProdutos} />
+            <Stack.Screen
+              name="ListagemProdutos"
+              component={ListagemProdutos}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaView>

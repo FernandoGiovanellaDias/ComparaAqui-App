@@ -2,31 +2,52 @@
 import CategoryGrid from '@/components/CategoryGrid';
 import CustomButton from '@/components/CustomButton';
 import TopBar from '@/components/TopBar';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, FlatList, Image } from 'react-native';
 
 import Logo from "../../assets/images/logo.svg";
 
 import { StackNavigationProp } from '@react-navigation/stack';
-import { useDados } from '@/contexts/DadosContext';
+import { Category, useDados } from '@/contexts/DadosContext';
 import { useNavigation } from '@react-navigation/native';
 import { StackTypes } from '@/app';
+import styles from './styles';
+import { textStyle } from '@/assets/geralStyles';
+import { recuperarCategorias, RetornoCategorias } from '@/util/categoriaUtils';
 
 export const Home = () => {
 
   const navigation = useNavigation<StackTypes>();
-  const { categorias } = useDados();
+  const { } = useDados();
+
+
+  const [loading, setLoading] = useState(true);
+  const [categorias, setCategorias] = useState<Category[]>([]);
+
+  useEffect(() => {
+    recuperarCategorias(({ type, data, error }: RetornoCategorias) => {
+      setCategorias(data?.lista ?? []);
+      setLoading(false);
+    });
+  }, []);
+
+
 
   return (
     <>
       <View style={styles.headerContainer}>
-        <Text style={styles.title}>Categorias de Produtos</Text>
+        <Text style={textStyle.titlePage}>Categorias de Produtos</Text>
       </View>
 
-      <CategoryGrid categorias={categorias} />
+      {
+        !loading ?
+          <CategoryGrid categorias={categorias} />
+          :
+          <></>
+      }
 
       <View style={styles.footerContainer}>
-        <CustomButton title="Produtos Selecionados" onPress={() => { /* Função ao pressionar */ }} />
+        <CustomButton title="Produtos Selecionados" onPress={() => { navigation.navigate("ListagemProdutos") }} />
         <CustomButton title="Ver todos os produtos" onPress={() => { navigation.navigate("ListagemProdutos") }} />
         <View style={{ marginTop: 20 }} >
           <CustomButton title="Buscar por mercados" onPress={() => { /* Função ao pressionar */ }} />
@@ -35,23 +56,3 @@ export const Home = () => {
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#D9D9D9',
-  },
-  headerContainer: {
-    alignItems: 'center',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginVertical: 20,
-  },
-  footerContainer: {
-    alignItems: 'stretch',
-    gap: 10,
-    paddingVertical: 20
-  },
-});
