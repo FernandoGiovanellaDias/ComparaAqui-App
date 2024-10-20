@@ -20,7 +20,7 @@ export const textStyle = StyleSheet.create({
     },
     tituloCaracteristicas: {
         fontWeight: 'bold',
-        fontSize: 12,
+        fontSize: 14,
         color: '#6A6A6A'
     },
     descricaoProdutos: {

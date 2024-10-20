@@ -1,3 +1,4 @@
+import { textStyle } from "@/assets/geralStyles";
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
@@ -7,7 +8,6 @@ const styles = StyleSheet.create({
     },
 
     icon: {
-        flex: 1,
         resizeMode: 'contain',
         marginBottom: 5,
         fontWeight: '600',
@@ -18,9 +18,22 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         borderColor: '#CECECE',
         borderWidth: 2,
-        paddingHorizontal: 20,
-        paddingVertical: 10
+        padding: 20,
     },
+
+    textCustoTotal: {
+        ...textStyle.tituloCaracteristicas,
+        marginLeft: 5,
+        color: '#2B53A0'
+    },
+
+    containerDetalhamento:{
+        backgroundColor: '#E9E7F6', 
+        borderWidth: 1,
+        borderRadius: 20, 
+        alignItems: 'center', 
+        marginTop: 10
+    }
 });
 
 export const stylesActive = StyleSheet.create({

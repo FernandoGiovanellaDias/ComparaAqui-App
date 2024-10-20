@@ -59,7 +59,14 @@ export const ListagemProdutos = () => {
         }
         exibirAlerta();
     }
-
+    
+    const abrirMercados = () => {
+        if (produtosSelecionados.length > 0) {
+            navigation.navigate("ListagemMercados")
+            return;
+        }
+        exibirAlerta();
+    }
 
     return (
         <>
@@ -84,7 +91,7 @@ export const ListagemProdutos = () => {
 
             <View style={styles.footerContainer}>
                 <CustomButton title="Produtos Selecionados" onPress={() => { abrirSelecionados() }} />
-                <CustomButton title="Buscar por mercados" onPress={() => { /* Função ao pressionar */ }} />
+                <CustomButton title="Buscar por mercados" onPress={() => { abrirMercados() }} />
             </View>
         </>
     );

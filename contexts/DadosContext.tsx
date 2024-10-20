@@ -7,6 +7,21 @@ export type Category = {
   icon: any;
 };
 
+export enum Classification {
+  RECOMENDADO = "RECOMENDADO",
+  PARCIAL = "PARCIAL",
+  GERAL = "GERAL"
+}
+
+export type Market = {
+  id: number | null | undefined;
+  name: string | null | undefined;
+  classification: Classification | null | undefined;
+  totalValue: number | null | undefined;
+  totalItems: number | null | undefined;
+  itensFaltantes: Product[] | null | undefined;
+};
+
 export type Product = {
   id: number | null | undefined;
   name: string | null | undefined;

@@ -24,6 +24,14 @@ export const ListagemSelecionados = () => {
         navigation.goBack();
     }
 
+    
+    const abrirMercados = () => {
+        if (produtosSelecionados.length > 0) {
+            navigation.navigate("ListagemMercados")
+            return;
+        }
+    }
+
     return (
         <>
             <View style={styles.headerContainer}>
@@ -39,7 +47,7 @@ export const ListagemSelecionados = () => {
                         {produtosSelecionados.length}
                     </Text>
                 </View>
-                <CustomButton title="Buscar por mercados" onPress={() => { /* Função ao pressionar */ }} />
+                <CustomButton title="Buscar por mercados" onPress={() => { abrirMercados() }} />
             </View>
         </>
     );
