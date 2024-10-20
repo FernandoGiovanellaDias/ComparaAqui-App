@@ -7,6 +7,7 @@ import { NavigationContainer, RouteProp } from "@react-navigation/native";
 import { createNativeStackNavigator, NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { SafeAreaView, StatusBar } from "react-native";
 import { ListagemMercados } from "@/screens/ListagemMercados";
+import { Detalhamento, DetalhamentoProps } from "@/screens/Detalhamento";
 
 const Stack = createNativeStackNavigator();
 
@@ -15,6 +16,7 @@ export type StackNavigation = {
   ListagemProdutos: ListagemProdutosProps | undefined;
   ListagemSelecionados: undefined;
   ListagemMercados: undefined;
+  Detalhamento: DetalhamentoProps | undefined;
 }
 
 export type StackTypes = NativeStackNavigationProp<StackNavigation>;
@@ -23,7 +25,7 @@ export default function App() {
   return (
     <DadosProvider>
       <SafeAreaView style={{ flex: 1 }}>
-        <StatusBar backgroundColor="#EAEAEA" barStyle="dark-content" />
+      <StatusBar backgroundColor="#EAEAEA" barStyle="dark-content" />
         <TopBar />
         <NavigationContainer independent={true}>
           <Stack.Navigator screenOptions={{ headerShown: false, contentStyle: { backgroundColor: '#D9D9D9' } }}>
@@ -31,6 +33,7 @@ export default function App() {
             <Stack.Screen name="ListagemProdutos" component={ListagemProdutos} />
             <Stack.Screen name="ListagemSelecionados" component={ListagemSelecionados} />
             <Stack.Screen name="ListagemMercados" component={ListagemMercados} />
+            <Stack.Screen name="Detalhamento" component={Detalhamento} />
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaView>

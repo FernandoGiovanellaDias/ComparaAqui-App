@@ -29,7 +29,7 @@ export const ListagemMercados = () => {
     const [mercados, setMercados] = useState<Market[]>([]);
 
     useEffect(() => {
-        recuperarMercados( ({ type, data, error }: RetornoMercados) => {
+        recuperarMercados(({ type, data, error }: RetornoMercados) => {
             setMercados(data?.lista ?? []);
             setLoading(false);
         });
@@ -47,7 +47,7 @@ export const ListagemMercados = () => {
                     :
                     <></>
             }
-            
+
         </>
     );
 };

@@ -6,6 +6,8 @@ import { Classification, Market, useDados } from '@/contexts/DadosContext';
 import styles, { stylesActive } from './styles';
 import { textStyle, textStyleActive } from '@/assets/geralStyles';
 import { formatCurrency } from "react-native-format-currency";
+import { useNavigation } from 'expo-router';
+import { StackTypes } from '@/app';
 
 export type MarketListProps = {
     mercados: Market[];
@@ -15,11 +17,12 @@ export type MarketListProps = {
 
 export const MarketList = ({ mercados }: MarketListProps) => {
 
+    const navigation = useNavigation<StackTypes>();
     const ItemMarketList = ({ item }: { item: Market }) => {
 
         if (item.classification === Classification.RECOMENDADO) {
             return <>
-                <TouchableOpacity onPress={() => { }} >
+                <TouchableOpacity onPress={() => { navigation.navigate('Detalhamento', {mercadoSelecionado: item}) }} >
                     <View style={{ ...styles.itemContainer, backgroundColor: '#7EE9D0', borderColor: '#6DCA86' }}>
                         <Text style={styles.icon}>{item.name}</Text>
                         <View style={{ flexDirection: 'row' }}>
@@ -40,7 +43,7 @@ export const MarketList = ({ mercados }: MarketListProps) => {
 
         if (item.classification === Classification.PARCIAL) {
             return <>
-                <TouchableOpacity onPress={() => { }} >
+                <TouchableOpacity onPress={() => { navigation.navigate('Detalhamento', {mercadoSelecionado: item}) }} >
                     <View style={{ ...styles.itemContainer, backgroundColor: '#E3B9A1', borderColor: '#D79494' }}>
                         <Text style={styles.icon}>{item.name}</Text>
                         <View style={{ flexDirection: 'row' }}>
@@ -53,9 +56,9 @@ export const MarketList = ({ mercados }: MarketListProps) => {
                         </View>
                         <View>
                             <Text style={{ color: '#C61B1B', fontWeight: 'bold', marginBottom: 2 }}>Não possuí os itens:</Text>
-                            {item.itensFaltantes?.map(faltante => (
+                            {item.itensFaltantes?.map((faltante, index) => (
                                 <>
-                                    <Text style={{ color: '#C61B1B', fontWeight: 'bold', fontSize: 12 }}>
+                                    <Text key={faltante.id?.toString() || index} style={{ color: '#C61B1B', fontWeight: 'bold', fontSize: 12 }}>
                                         {'\u2022 ' + faltante.name}
                                     </Text>
                                 </>
@@ -70,7 +73,7 @@ export const MarketList = ({ mercados }: MarketListProps) => {
         }
 
         return <>
-            <TouchableOpacity onPress={() => { }} >
+            <TouchableOpacity onPress={() => { navigation.navigate('Detalhamento', {mercadoSelecionado: item}) }} >
                 <View style={styles.itemContainer}>
                     <Text style={styles.icon}>{item.name}</Text>
                     <View style={{ flexDirection: 'row' }}>
