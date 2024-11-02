@@ -9,10 +9,11 @@ import styles from './styles';
 import { textStyle } from '@/assets/geralStyles';
 import { RouteProp, useRoute } from '@react-navigation/native';
 import { StackNavigation, StackTypes } from '@/app';
-import { recuperarProdutos, RetornoProdutos } from '@/util/produtoUtils';
+import { RetornoProdutos } from '@/util/produtoUtils';
 import { useNavigation } from 'expo-router';
 import CustomBanner from '@/components/CustomBanner';
 import { DetalhamentoList } from '@/components/DetalhamentoList';
+import { recuperarDetalhamento } from '@/util/mercadoUtils';
 
 
 export type DetalhamentoProps = {
@@ -29,12 +30,14 @@ export const Detalhamento = () => {
     const navigation = useNavigation<StackTypes>();
     const route = useRoute<RouteProp<StackNavigation, 'Detalhamento'>>();
     const { mercadoSelecionado } = route.params ?? { mercadoSelecionado: null };
+    
+    const { produtosSelecionados } = useDados();
 
     const [loading, setLoading] = useState(true);
     const [produtos, setProdutos] = useState<Product[]>([]);
 
     useEffect(() => {
-        recuperarProdutos(mercadoSelecionado?.id ?? null, ({ type, data, error }: RetornoProdutos) => {
+        recuperarDetalhamento(mercadoSelecionado, produtosSelecionados, ({ type, data, error }: RetornoProdutos) => {
             setProdutos(data?.lista ?? []);
             setLoading(false);
         });

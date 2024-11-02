@@ -20,7 +20,7 @@ export const DetalhamentoList = ({ produtos }: DetalhamentoListProps) => {
         return <>
             <View style={styles.itemContainer}>
                 <Text style={styles.icon}>{item.name}</Text>
-                <Text style={styles.icon}>R$ {item.price?.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.').replace('.', ',')}</Text>
+                <Text style={styles.icon}>R$ {item.price}</Text>
             </View>
         </>
     }

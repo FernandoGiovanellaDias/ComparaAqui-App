@@ -58,8 +58,8 @@ export const MarketList = ({ mercados }: MarketListProps) => {
                             <Text style={{ color: '#C61B1B', fontWeight: 'bold', marginBottom: 2 }}>Não possuí os itens:</Text>
                             {item.itensFaltantes?.map((faltante, index) => (
                                 <>
-                                    <Text key={faltante.id?.toString() || index} style={{ color: '#C61B1B', fontWeight: 'bold', fontSize: 12 }}>
-                                        {'\u2022 ' + faltante.name}
+                                    <Text key={faltante.id} style={{ color: '#C61B1B', fontWeight: 'bold', fontSize: 12 }}>
+                                        {'\u2022 ' + faltante}
                                     </Text>
                                 </>
                             ))}
@@ -97,7 +97,7 @@ export const MarketList = ({ mercados }: MarketListProps) => {
             <FlatList
                 data={mercados}
                 renderItem={ItemMarketList}
-                keyExtractor={(item) => item.id?.toString() || ''}
+                keyExtractor={(item) => `${item.id}`}
                 contentContainerStyle={styles.listContainer}
             />
         </View>

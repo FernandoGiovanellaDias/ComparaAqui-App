@@ -15,7 +15,7 @@ export type RetornoCategorias = {
 
 export async function recuperarCategorias(callback = (data: RetornoCategorias) => { }) {
     try {
-        const response = await axios.get(URL_API + "/categorias");
+        const response = await axios.get(URL_API + "/v1/recuperarCategorias");
         callback({ type: TipoRetorno.SUCCESS, data: response.data });[]
     } catch (error) {
         console.error(error);

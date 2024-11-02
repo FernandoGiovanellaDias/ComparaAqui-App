@@ -15,11 +15,10 @@ export type RetornoProdutos = {
 
 export async function recuperarProdutos(idCategoria: number | null, callback = (data: RetornoProdutos) => { }) {
     try {
-        let url:string = URL_API + "/produtos";
-        if(idCategoria != null){
-            url += idCategoria;
-        }
-        const response = await axios.get(url);
+        let url:string = URL_API + "/v1/recuperarProdutosPorCategoriaMercado";
+        const response = await axios.post(url, {
+            id_categoria: idCategoria
+        });
         callback({ type: TipoRetorno.SUCCESS, data: response.data });[]
     } catch (error) {
         console.error(error);

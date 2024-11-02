@@ -8,6 +8,7 @@ import { createNativeStackNavigator, NativeStackNavigationProp } from '@react-na
 import { SafeAreaView, StatusBar } from "react-native";
 import { ListagemMercados } from "@/screens/ListagemMercados";
 import { Detalhamento, DetalhamentoProps } from "@/screens/Detalhamento";
+import React from "react";
 
 const Stack = createNativeStackNavigator();
 

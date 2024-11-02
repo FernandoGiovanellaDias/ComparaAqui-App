@@ -1,6 +1,6 @@
 import axios from "axios";
 import { TipoRetorno, URL_API } from "..";
-import { Market } from "@/contexts/DadosContext";
+import { Market, Product } from "@/contexts/DadosContext";
 import { RetornoProdutos } from "../produtoUtils";
 
 
@@ -14,9 +14,11 @@ export type RetornoMercados = {
     error?: string,
 }
 
-export async function recuperarMercados(callback = (data: RetornoMercados) => { }) {
+export async function recuperarMercados(produtosSelecionados:Product[], callback = (data: RetornoMercados) => { }) {
     try {
-        const response = await axios.get(URL_API + "/mercados");
+        const response = await axios.post(URL_API + "/v1/recuperarMercadPorProdutos", {
+            id_produtos: produtosSelecionados.map(i=>i.id)
+        });
         callback({ type: TipoRetorno.SUCCESS, data: response.data });[]
     } catch (error) {
         console.error(error);
@@ -24,9 +26,13 @@ export async function recuperarMercados(callback = (data: RetornoMercados) => { 
     }
 
 }
-export async function recuperarDetalhamento(idMercado: number, callback = (data: RetornoProdutos) => { }) {
+export async function recuperarDetalhamento(mercado: Market | null | undefined, produtosSelecionados:Product[], callback = (data: RetornoProdutos) => { }) {
     try {
-        const response = await axios.get(URL_API + "/mercados" + idMercado);
+        let url:string = URL_API + "/v1/detalhamentoPorMercado";
+        const response = await axios.post(url, {
+            id_mercado: mercado?.id ?? null,
+            id_produtos: produtosSelecionados.map(i=>i.id)
+        });
         callback({ type: TipoRetorno.SUCCESS, data: response.data });[]
     } catch (error) {
         console.error(error);
