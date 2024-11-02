@@ -12,6 +12,7 @@ import { StackNavigation, StackTypes } from '@/app';
 import { useNavigation } from 'expo-router';
 import { recuperarMercados, RetornoMercados } from '@/util/mercadoUtils';
 import { MarketList } from '@/components/MarketList';
+import { ActivityIndicator } from 'react-native-paper';
 
 
 
@@ -45,7 +46,11 @@ export const ListagemMercados = () => {
                 !loading ?
                     <MarketList mercados={mercados} />
                     :
-                    <></>
+                    <>
+                        <View style={{ flex: 1 }}>
+                            <ActivityIndicator color="#D0935F" animating={true} size={50} />
+                        </View>
+                    </>
             }
 
         </>

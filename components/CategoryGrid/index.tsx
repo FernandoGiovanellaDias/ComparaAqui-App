@@ -22,7 +22,7 @@ const CategoryGrid = ({categorias}:CategoryGridProps) => {
     const renderItem = ({ item }: { item: Category }) => (
         <TouchableOpacity style={styles.categoryItem} onPress={()=>{navigation.navigate("ListagemProdutos", {categoriaSelecionada: item});}}>
             <Image source={Icon} style={styles.icon} />
-            <Text style={textStyle.text}>{item.title}</Text>
+            <Text numberOfLines={2} style={textStyle.text}>{item.title}</Text>
         </TouchableOpacity>
     );
 

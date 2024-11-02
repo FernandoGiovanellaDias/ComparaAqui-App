@@ -16,6 +16,7 @@ import { StackNavigation, StackTypes } from '@/app';
 import { recuperarProdutos, RetornoProdutos } from '@/util/produtoUtils';
 import { useNavigation } from 'expo-router';
 import CustomBanner from '@/components/CustomBanner';
+import { ActivityIndicator } from 'react-native-paper';
 
 
 export type ListagemProdutosProps = {
@@ -85,7 +86,11 @@ export const ListagemProdutos = () => {
                 !loading ?
                     <ProductList produtos={produtos} />
                     :
-                    <></>
+                    <>
+                    <View style={{flex:1}}>
+                        <ActivityIndicator color="#D0935F" animating={true} size={50}  />
+                    </View>
+                    </>
             }
 
 

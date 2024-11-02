@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
         margin: 10,
         padding: 10,
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         width: 100,
         height: 100,
         backgroundColor: '#E2E2E2',
@@ -21,7 +21,8 @@ const styles = StyleSheet.create({
     },
     icon: {
         flex: 1,
-        resizeMode: 'contain',
+        aspectRatio:1,
+        maxHeight: 35,
         marginBottom: 5,
     },
 });

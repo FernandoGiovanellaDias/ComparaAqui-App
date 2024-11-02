@@ -15,6 +15,7 @@ import styles from './styles';
 import { textStyle } from '@/assets/geralStyles';
 import { recuperarCategorias, RetornoCategorias } from '@/util/categoriaUtils';
 import CustomBanner from '@/components/CustomBanner';
+import { ActivityIndicator } from 'react-native-paper';
 
 export const Home = () => {
 
@@ -68,7 +69,11 @@ export const Home = () => {
         !loading ?
           <CategoryGrid categorias={categorias} />
           :
-          <></>
+          <>
+              <View style={{ flex: 1 }}>
+                  <ActivityIndicator color="#D0935F" animating={true} size={50} />
+              </View>
+          </>
       }
 
       <View style={styles.footerContainer}>

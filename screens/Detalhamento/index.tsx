@@ -14,6 +14,7 @@ import { useNavigation } from 'expo-router';
 import CustomBanner from '@/components/CustomBanner';
 import { DetalhamentoList } from '@/components/DetalhamentoList';
 import { recuperarDetalhamento } from '@/util/mercadoUtils';
+import { ActivityIndicator } from 'react-native-paper';
 
 
 export type DetalhamentoProps = {
@@ -30,7 +31,7 @@ export const Detalhamento = () => {
     const navigation = useNavigation<StackTypes>();
     const route = useRoute<RouteProp<StackNavigation, 'Detalhamento'>>();
     const { mercadoSelecionado } = route.params ?? { mercadoSelecionado: null };
-    
+
     const { produtosSelecionados } = useDados();
 
     const [loading, setLoading] = useState(true);
@@ -62,14 +63,18 @@ export const Detalhamento = () => {
 
 
 
-            <Text style={{...textStyle.totalItens, marginLeft: 20}}>
+            <Text style={{ ...textStyle.totalItens, marginLeft: 20 }}>
                 Itens disponíveis do mercado
             </Text>
             {
                 !loading ?
                     <DetalhamentoList produtos={produtos} />
                     :
-                    <></>
+                    <>
+                        <View style={{ flex: 1 }}>
+                            <ActivityIndicator color="#D0935F" animating={true} size={50} />
+                        </View>
+                    </>
             }
         </>
     );
