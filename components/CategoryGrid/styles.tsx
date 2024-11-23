@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
         aspectRatio:1,
         maxHeight: 35,
         marginBottom: 5,
+        borderRadius: 4,
     },
 });
 

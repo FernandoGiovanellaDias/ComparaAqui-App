@@ -14,17 +14,20 @@ export type CategoryGridProps = {
 }
 
 
-const CategoryGrid = ({categorias}:CategoryGridProps) => {
+const CategoryGrid = ({ categorias }: CategoryGridProps) => {
 
-    
-  const navigation = useNavigation<StackTypes>();
 
-    const renderItem = ({ item }: { item: Category }) => (
-        <TouchableOpacity style={styles.categoryItem} onPress={()=>{navigation.navigate("ListagemProdutos", {categoriaSelecionada: item});}}>
-            <Image source={Icon} style={styles.icon} />
-            <Text numberOfLines={2} style={textStyle.text}>{item.title}</Text>
-        </TouchableOpacity>
-    );
+    const navigation = useNavigation<StackTypes>();
+
+    const renderItem = ({ item }: { item: Category }) => {
+        const imagem = item.icon ? { uri: item.icon } : Icon;
+        return (
+            <TouchableOpacity style={styles.categoryItem} onPress={() => { navigation.navigate("ListagemProdutos", { categoriaSelecionada: item }); }}>
+                <Image source={imagem} style={styles.icon} resizeMode="contain" />
+                <Text numberOfLines={2} style={textStyle.text}>{item.title}</Text>
+            </TouchableOpacity>
+        );
+    }
 
     return (
         <FlatList
